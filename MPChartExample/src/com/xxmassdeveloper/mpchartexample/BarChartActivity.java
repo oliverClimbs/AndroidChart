@@ -211,6 +211,11 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
                             .show();
                 break;
             }
+            case R.id.actionRotateXAxisLabelsBy45Deg: {
+                mChart.getXAxis().setLabelRotationAngle(45);
+                mChart.notifyDataSetChanged();
+                mChart.invalidate();
+            }
         }
         return true;
     }
