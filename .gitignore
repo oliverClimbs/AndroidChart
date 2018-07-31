@@ -8,13 +8,6 @@
 # Java class files
 *.class
 
-# generated files
-bin/
-gen/
-generated/
-docs/
-finalOutput/
-
 build.xml
 
 # Local configuration file (sdk path, etc)
@@ -31,7 +24,11 @@ proguard/
 *.iml
 *.ipr
 *.iws
-.idea/
+
+# ecerything except code format settings
+!.idea/
+.idea/*
+!codeStyleSettings.xml
 
 .directory
 
