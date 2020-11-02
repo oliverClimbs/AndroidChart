@@ -1,7 +1,7 @@
-![banner](https://raw.github.com/PhilJay/MPChart/master/design/feature_graphic_smaller.png)
-
 [![](https://jitpack.io/v/hannesa2/MPAndroidChart.svg)](https://jitpack.io/#hannesa2/MPAndroidChart)
 [![API](https://img.shields.io/badge/API-14%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=14)
+
+![banner](https://raw.github.com/PhilJay/MPChart/master/design/feature_graphic_smaller.png)
 
 :zap: A powerful & easy to use chart library for Android :zap:
 
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.hannesa2:MPAndroidChart:3.1.0'
+    implementation "com.github.hannesa2:MPAndroidChart:$latestVersion"
 }
 ```
 
