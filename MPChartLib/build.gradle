@@ -38,8 +38,8 @@ dependencies {
 
 ext {
     PUBLISH_GROUP_ID = "info.mxtracks"
-    PUBLISH_VERSION = getTag()
+    PUBLISH_VERSION = getTag()+"-t3"
     PUBLISH_ARTIFACT_ID = 'chart'
 }
-
+println "Build version $PUBLISH_VERSION"
 apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
