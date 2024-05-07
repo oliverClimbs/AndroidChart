@@ -56,11 +56,11 @@ public class BarChartActivityMultiDataset extends DemoBase implements OnSeekBarC
         tvX.setTextSize(10);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setMax(50);
         seekBarX.setOnSeekBarChangeListener(this);
 
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarY = findViewById(R.id.seekBarY);
         seekBarY.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -138,12 +138,13 @@ public class BarChartActivityMultiDataset extends DemoBase implements OnSeekBarC
         ArrayList<BarEntry> values4 = new ArrayList<>();
 
         float randomMultiplier = seekBarY.getProgress() * 100000f;
+        Double[] sampleValues = DataTools.Companion.getValues(100 + 2);
 
         for (int i = startYear; i < endYear; i++) {
-            values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+            values1.add(new BarEntry(i, (float) (sampleValues[i - startYear].floatValue() * randomMultiplier)));
+            values2.add(new BarEntry(i, (float) (sampleValues[i - startYear + 1].floatValue() * randomMultiplier)));
+            values3.add(new BarEntry(i, (float) (sampleValues[i - startYear + 2].floatValue() * randomMultiplier)));
+            values4.add(new BarEntry(i, (float) (sampleValues[i - startYear].floatValue() * randomMultiplier)));
         }
 
         BarDataSet set1, set2, set3, set4;
@@ -154,10 +155,10 @@ public class BarChartActivityMultiDataset extends DemoBase implements OnSeekBarC
             set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
             set3 = (BarDataSet) chart.getData().getDataSetByIndex(2);
             set4 = (BarDataSet) chart.getData().getDataSetByIndex(3);
-            set1.setValues(values1);
-            set2.setValues(values2);
-            set3.setValues(values3);
-            set4.setValues(values4);
+            set1.setEntries(values1);
+            set2.setEntries(values2);
+            set3.setEntries(values3);
+            set4.setEntries(values4);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
 
@@ -203,7 +204,7 @@ public class BarChartActivityMultiDataset extends DemoBase implements OnSeekBarC
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/BarChartActivityMultiDataset.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/BarChartActivityMultiDataset.java"));
                 startActivity(i);
                 break;
             }

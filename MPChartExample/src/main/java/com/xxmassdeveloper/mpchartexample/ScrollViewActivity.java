@@ -56,11 +56,11 @@ public class ScrollViewActivity extends DemoBase {
     }
 
     private void setData(int count) {
-
+        Double[] sampleValues = DataTools.Companion.getValues(count);
         ArrayList<BarEntry> values = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * count) + 15;
+            float val = (float) (sampleValues[i].floatValue() * count) + 15;
             values.add(new BarEntry(i, (int) val));
         }
 
@@ -87,7 +87,7 @@ public class ScrollViewActivity extends DemoBase {
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/ScrollViewActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/ScrollViewActivity.java"));
                 startActivity(i);
                 break;
             }

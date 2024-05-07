@@ -51,10 +51,10 @@ public class ScatterChartActivity extends DemoBase implements OnSeekBarChangeLis
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setOnSeekBarChangeListener(this);
 
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarY = findViewById(R.id.seekBarY);
         seekBarY.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -103,19 +103,20 @@ public class ScatterChartActivity extends DemoBase implements OnSeekBarChangeLis
         ArrayList<Entry> values1 = new ArrayList<>();
         ArrayList<Entry> values2 = new ArrayList<>();
         ArrayList<Entry> values3 = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(100+2);
 
         for (int i = 0; i < seekBarX.getProgress(); i++) {
-            float val = (float) (Math.random() * seekBarY.getProgress()) + 3;
+            float val = (float) (sampleValues[i].floatValue() * seekBarY.getProgress()) + 3;
             values1.add(new Entry(i, val));
         }
 
         for (int i = 0; i < seekBarX.getProgress(); i++) {
-            float val = (float) (Math.random() * seekBarY.getProgress()) + 3;
+            float val = (float) (sampleValues[i + 1].floatValue() * seekBarY.getProgress()) + 3;
             values2.add(new Entry(i+0.33f, val));
         }
 
         for (int i = 0; i < seekBarX.getProgress(); i++) {
-            float val = (float) (Math.random() * seekBarY.getProgress()) + 3;
+            float val = (float) (sampleValues[i + 2].floatValue() * seekBarY.getProgress()) + 3;
             values3.add(new Entry(i+0.66f, val));
         }
 
@@ -161,7 +162,7 @@ public class ScatterChartActivity extends DemoBase implements OnSeekBarChangeLis
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/ScatterChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/ScatterChartActivity.java"));
                 startActivity(i);
                 break;
             }

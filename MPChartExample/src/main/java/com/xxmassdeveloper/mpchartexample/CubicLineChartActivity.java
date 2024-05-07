@@ -48,8 +48,8 @@ public class CubicLineChartActivity extends DemoBase implements OnSeekBarChangeL
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarX = findViewById(R.id.seekBarX);
+        seekBarY = findViewById(R.id.seekBarY);
 
         chart = findViewById(R.id.chart1);
         chart.setViewPortOffsets(0, 0, 0, 0);
@@ -105,9 +105,10 @@ public class CubicLineChartActivity extends DemoBase implements OnSeekBarChangeL
     private void setData(int count, float range) {
 
         ArrayList<Entry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getMuchValues(count);
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * (range + 1)) + 20;
+            float val = (float) (sampleValues[i].floatValue() * (range + 1)) + 20;
             values.add(new Entry(i, val));
         }
 
@@ -116,7 +117,7 @@ public class CubicLineChartActivity extends DemoBase implements OnSeekBarChangeL
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
+            set1.setEntries(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
@@ -165,7 +166,7 @@ public class CubicLineChartActivity extends DemoBase implements OnSeekBarChangeL
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/CubicLineChartActivity.java"));
                 startActivity(i);
                 break;
             }

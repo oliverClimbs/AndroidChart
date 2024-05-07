@@ -40,7 +40,7 @@ import java.util.List;
  * @since 1.7.4
  * @version 3.1.0
  */
-public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListener,
+public class LineChartDualAxisActivity extends DemoBase implements OnSeekBarChangeListener,
         OnChartValueSelectedListener {
 
     private LineChart chart;
@@ -54,15 +54,15 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_linechart);
 
-        setTitle("LineChartActivity2");
+        setTitle("LineChart DualAxis");
 
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setOnSeekBarChangeListener(this);
 
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarY = findViewById(R.id.seekBarY);
         seekBarY.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -136,23 +136,24 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
     private void setData(int count, float range) {
 
         ArrayList<Entry> values1 = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(count);
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * (range / 2f)) + 50;
+            float val = (float) (sampleValues[i].floatValue() * (range / 2f)) + 50;
             values1.add(new Entry(i, val));
         }
 
         ArrayList<Entry> values2 = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * range) + 450;
+            float val = (float) (sampleValues[i].floatValue() * range) + 450;
             values2.add(new Entry(i, val));
         }
 
         ArrayList<Entry> values3 = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * range) + 500;
+            float val = (float) (sampleValues[i].floatValue() * range) + 500;
             values3.add(new Entry(i, val));
         }
 
@@ -163,9 +164,9 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
             set1 = (LineDataSet) chart.getData().getDataSetByIndex(0);
             set2 = (LineDataSet) chart.getData().getDataSetByIndex(1);
             set3 = (LineDataSet) chart.getData().getDataSetByIndex(2);
-            set1.setValues(values1);
-            set2.setValues(values2);
-            set3.setValues(values3);
+            set1.setEntries(values1);
+            set2.setEntries(values2);
+            set3.setEntries(values3);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
@@ -232,7 +233,7 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java"));
                 startActivity(i);
                 break;
             }

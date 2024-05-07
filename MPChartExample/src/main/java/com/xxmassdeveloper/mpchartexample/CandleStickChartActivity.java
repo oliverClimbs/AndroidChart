@@ -48,10 +48,10 @@ public class CandleStickChartActivity extends DemoBase implements OnSeekBarChang
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setOnSeekBarChangeListener(this);
 
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarY = findViewById(R.id.seekBarY);
         seekBarY.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -100,16 +100,17 @@ public class CandleStickChartActivity extends DemoBase implements OnSeekBarChang
         chart.resetTracking();
 
         ArrayList<CandleEntry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(100);
 
         for (int i = 0; i < progress; i++) {
             float multi = (seekBarY.getProgress() + 1);
-            float val = (float) (Math.random() * 40) + multi;
+            float val = (float) (sampleValues[i].floatValue() * 40) + multi;
 
-            float high = (float) (Math.random() * 9) + 8f;
-            float low = (float) (Math.random() * 9) + 8f;
+            float high = (float) (sampleValues[i].floatValue() * 9) + 8f;
+            float low = (float) (sampleValues[i].floatValue() * 8) + 8f;
 
-            float open = (float) (Math.random() * 6) + 1f;
-            float close = (float) (Math.random() * 6) + 1f;
+            float open = (float) (sampleValues[i].floatValue() * 6) + 1f;
+            float close = (float) (sampleValues[i].floatValue() * 7) + 1f;
 
             boolean even = i % 2 == 0;
 
@@ -154,7 +155,7 @@ public class CandleStickChartActivity extends DemoBase implements OnSeekBarChang
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/CandleStickChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/CandleStickChartActivity.java"));
                 startActivity(i);
                 break;
             }

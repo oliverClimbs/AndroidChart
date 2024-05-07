@@ -51,10 +51,10 @@ public class MultiLineChartActivity extends DemoBase implements OnSeekBarChangeL
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setOnSeekBarChangeListener(this);
 
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarY = findViewById(R.id.seekBarY);
         seekBarY.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -111,9 +111,10 @@ public class MultiLineChartActivity extends DemoBase implements OnSeekBarChangeL
         for (int z = 0; z < 3; z++) {
 
             ArrayList<Entry> values = new ArrayList<>();
+            Double[] sampleValues = DataTools.Companion.getValues(100);
 
             for (int i = 0; i < progress; i++) {
-                double val = (Math.random() * seekBarY.getProgress()) + 3;
+                double val = (sampleValues[i].floatValue() * seekBarY.getProgress()) + 3;
                 values.add(new Entry(i, (float) val));
             }
 
@@ -150,7 +151,7 @@ public class MultiLineChartActivity extends DemoBase implements OnSeekBarChangeL
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/MultiLineChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/MultiLineChartActivity.java"));
                 startActivity(i);
                 break;
             }

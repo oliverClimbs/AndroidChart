@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class DynamicalAddingActivity extends DemoBase implements OnChartValueSelectedListener {
 
     private LineChart chart;
+    Double[] sampleValues = DataTools.Companion.getValues(102);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +71,14 @@ public class DynamicalAddingActivity extends DemoBase implements OnChartValueSel
             data.addDataSet(set);
         }
 
-        // choose a random dataSet
-        int randomDataSetIndex = (int) (Math.random() * data.getDataSetCount());
-        ILineDataSet randomSet = data.getDataSetByIndex(randomDataSetIndex);
-        float value = (float) (Math.random() * 50) + 50f * (randomDataSetIndex + 1);
+        int lastDataSetIndex = data.getDataSetCount() - 1; // add data only to the last
+        ILineDataSet lastSet = data.getDataSetByIndex(lastDataSetIndex);
 
-        data.addEntry(new Entry(randomSet.getEntryCount(), value), randomDataSetIndex);
+        int cycleValue = (int) (lastSet.getEntryCount() % 100.0);
+
+        float value = (float) (sampleValues[cycleValue].floatValue() * 50) + 50f * (lastDataSetIndex + 1);
+
+        data.addEntry(new Entry(lastSet.getEntryCount(), value), lastDataSetIndex);
         data.notifyDataChanged();
 
         // let the chart know it's data has changed
@@ -124,7 +127,9 @@ public class DynamicalAddingActivity extends DemoBase implements OnChartValueSel
             ArrayList<Entry> values = new ArrayList<>();
 
             for (int i = 0; i < amount; i++) {
-                values.add(new Entry(i, (float) (Math.random() * 50f) + 50f * count));
+                int cycleValue = (int) (i % 100.0);
+
+                values.add(new Entry(i, (float) (sampleValues[cycleValue].floatValue() * 50f) + 50f * count));
             }
 
             LineDataSet set = new LineDataSet(values, "DataSet " + count);
@@ -193,7 +198,7 @@ public class DynamicalAddingActivity extends DemoBase implements OnChartValueSel
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/DynamicalAddingActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/DynamicalAddingActivity.java"));
                 startActivity(i);
                 break;
             }

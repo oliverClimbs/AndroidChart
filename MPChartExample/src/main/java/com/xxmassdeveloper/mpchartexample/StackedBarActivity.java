@@ -37,6 +37,7 @@ import java.util.List;
 
 public class StackedBarActivity extends DemoBase implements OnSeekBarChangeListener, OnChartValueSelectedListener {
 
+    private static final int DEFAULT_VALUE = 12;
     private BarChart chart;
     private SeekBar seekBarX, seekBarY;
     private TextView tvX, tvY;
@@ -52,10 +53,10 @@ public class StackedBarActivity extends DemoBase implements OnSeekBarChangeListe
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setOnSeekBarChangeListener(this);
 
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarY = findViewById(R.id.seekBarY);
         seekBarY.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -111,13 +112,13 @@ public class StackedBarActivity extends DemoBase implements OnSeekBarChangeListe
         tvY.setText(String.valueOf(seekBarY.getProgress()));
 
         ArrayList<BarEntry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(100 + 2);
 
         for (int i = 0; i < seekBarX.getProgress(); i++) {
             float mul = (seekBarY.getProgress() + 1);
-            float val1 = (float) (Math.random() * mul) + mul / 3;
-            float val2 = (float) (Math.random() * mul) + mul / 3;
-            float val3 = (float) (Math.random() * mul) + mul / 3;
-
+            float val1 = (float) (sampleValues[i].floatValue() * mul) + mul / 3;
+            float val2 = (float) (sampleValues[i + 1].floatValue() * mul) + mul / 3;
+            float val3 = (float) (sampleValues[i + 2].floatValue() * mul) + mul / 3;
             values.add(new BarEntry(
                     i,
                     new float[]{val1, val2, val3},
@@ -129,7 +130,7 @@ public class StackedBarActivity extends DemoBase implements OnSeekBarChangeListe
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
+            set1.setEntries(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
@@ -164,7 +165,7 @@ public class StackedBarActivity extends DemoBase implements OnSeekBarChangeListe
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/StackedBarActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/StackedBarActivity.java"));
                 startActivity(i);
                 break;
             }

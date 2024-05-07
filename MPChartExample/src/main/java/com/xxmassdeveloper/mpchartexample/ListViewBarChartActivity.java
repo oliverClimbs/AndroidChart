@@ -136,11 +136,12 @@ public class ListViewBarChartActivity extends DemoBase {
      * @return Bar data
      */
     private BarData generateData(int cnt) {
-
+        int count = 12;
         ArrayList<BarEntry> entries = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(count);
 
-        for (int i = 0; i < 12; i++) {
-            entries.add(new BarEntry(i, (float) (Math.random() * 70) + 30));
+        for (int i = 0; i < count; i++) {
+            entries.add(new BarEntry(i, (float) (sampleValues[i].floatValue() * 70) + 30));
         }
 
         BarDataSet d = new BarDataSet(entries, "New DataSet " + cnt);
@@ -167,7 +168,7 @@ public class ListViewBarChartActivity extends DemoBase {
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/ListViewBarChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/ListViewBarChartActivity.java"));
                 startActivity(i);
                 break;
             }

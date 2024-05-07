@@ -71,7 +71,7 @@ public class HalfPieChartActivity extends DemoBase {
         chart.setRotationAngle(180f);
         chart.setCenterTextOffset(0, -20);
 
-        setData(4, 100);
+        setData(100);
 
         chart.animateY(1400, Easing.EaseInOutQuad);
 
@@ -90,12 +90,13 @@ public class HalfPieChartActivity extends DemoBase {
         chart.setEntryLabelTextSize(12f);
     }
 
-    private void setData(int count, float range) {
-
+    private void setData(float range) {
+        int count = 4;
         ArrayList<PieEntry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(count);
 
         for (int i = 0; i < count; i++) {
-            values.add(new PieEntry((float) ((Math.random() * range) + range / 5), parties[i % parties.length]));
+            values.add(new PieEntry((float) ((sampleValues[i].floatValue() * range) + range / 5), parties[i % parties.length]));
         }
 
         PieDataSet dataSet = new PieDataSet(values, "Election Results");
@@ -154,7 +155,7 @@ public class HalfPieChartActivity extends DemoBase {
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/HalfPieChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/HalfPieChartActivity.java"));
                 startActivity(i);
                 break;
             }

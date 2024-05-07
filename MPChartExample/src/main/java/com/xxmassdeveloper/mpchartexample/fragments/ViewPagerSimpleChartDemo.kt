@@ -18,7 +18,7 @@ import com.xxmassdeveloper.mpchartexample.notimportant.DemoBase
 /**
  * Demonstrates how to keep your charts straight forward, simple and beautiful with the MPAndroidChart library.
  */
-class SimpleChartDemo : DemoBase() {
+class ViewPagerSimpleChartDemo : DemoBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -57,7 +57,7 @@ class SimpleChartDemo : DemoBase() {
         when (item.itemId) {
             R.id.viewGithub -> {
                 val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/fragments/SimpleChartDemo.java")
+                i.data = Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/fragments/SimpleChartDemo.java")
                 startActivity(i)
             }
         }
@@ -69,7 +69,7 @@ class SimpleChartDemo : DemoBase() {
 
     private fun showSnackbar(text: String) {
         val viewPos : View = findViewById(android.R.id.content)
-        val snackbar = Snackbar.make(viewPos, text, Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(viewPos, text, Snackbar.LENGTH_SHORT)
         val view = snackbar.view
         when (val params = view.layoutParams) {
             is CoordinatorLayout.LayoutParams -> {

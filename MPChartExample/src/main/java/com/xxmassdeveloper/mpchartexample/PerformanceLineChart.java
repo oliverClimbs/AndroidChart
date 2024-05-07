@@ -71,9 +71,10 @@ public class PerformanceLineChart extends DemoBase implements OnSeekBarChangeLis
     private void setData(int count, float range) {
 
         ArrayList<Entry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getMuchValues(count);
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * (range + 1)) + 3;
+            float val = (float) (sampleValues[i].floatValue() * (range + 1)) + 3;
             values.add(new Entry(i * 0.001f, val));
         }
 
@@ -110,7 +111,7 @@ public class PerformanceLineChart extends DemoBase implements OnSeekBarChangeLis
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/PerformanceLineChart.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/PerformanceLineChart.java"));
                 startActivity(i);
                 break;
             }

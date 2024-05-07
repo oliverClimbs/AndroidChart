@@ -123,7 +123,7 @@ public class BarChartActivitySinus extends DemoBase implements OnSeekBarChangeLi
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
             set = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set.setValues(entries);
+            set.setEntries(entries);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
@@ -152,7 +152,7 @@ public class BarChartActivitySinus extends DemoBase implements OnSeekBarChangeLi
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/BarChartActivitySinus.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/BarChartActivitySinus.java"));
                 startActivity(i);
                 break;
             }

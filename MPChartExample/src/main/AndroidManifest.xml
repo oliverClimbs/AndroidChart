@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="LineChartActivity1" />
-        <activity android:name="LineChartActivity2" />
+        <activity android:name=".LineChartDualAxisActivity" />
         <activity android:name="LineChartTime" />
         <activity android:name="BarChartActivity" />
 		<activity android:name="HorizontalBarChartActivity" />
@@ -31,7 +31,7 @@
         <activity android:name="DrawChartActivity" />
         <activity android:name="ScatterChartActivity" />
         <activity android:name="BubbleChartActivity" />
-        <activity android:name=".fragments.SimpleChartDemo" />
+        <activity android:name=".fragments.ViewPagerSimpleChartDemo" />
         <activity android:name="ListViewBarChartActivity" />
         <activity android:name="ListViewMultiChartActivity" />
         <activity android:name="StackedBarActivity" />
@@ -51,6 +51,7 @@
         <activity android:name="BarChartPositiveNegative" />
         <activity android:name="FilledLineActivity" />
         <activity android:name="HalfPieChartActivity" />
+        <activity android:name="SpecificPositionsLineChartActivity" />
     </application>
 
 </manifest>

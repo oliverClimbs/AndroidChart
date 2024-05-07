@@ -57,8 +57,8 @@ public class PieChartActivity extends DemoBase implements OnSeekBarChangeListene
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarX = findViewById(R.id.seekBarX);
+        seekBarY = findViewById(R.id.seekBarY);
 
         seekBarX.setOnSeekBarChangeListener(this);
         seekBarY.setOnSeekBarChangeListener(this);
@@ -118,11 +118,12 @@ public class PieChartActivity extends DemoBase implements OnSeekBarChangeListene
 
     private void setData(int count, float range) {
         ArrayList<PieEntry> entries = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(100);
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
+            entries.add(new PieEntry((float) ((sampleValues[i].floatValue() * range) + range / 5),
                     parties[i % parties.length],
                     getResources().getDrawable(R.drawable.star)));
         }
@@ -184,7 +185,7 @@ public class PieChartActivity extends DemoBase implements OnSeekBarChangeListene
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/PieChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/PieChartActivity.java"));
                 startActivity(i);
                 break;
             }

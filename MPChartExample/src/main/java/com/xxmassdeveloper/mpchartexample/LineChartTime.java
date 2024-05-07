@@ -52,7 +52,7 @@ public class LineChartTime extends DemoBase implements OnSeekBarChangeListener {
         setTitle("LineChartTime");
 
         tvX = findViewById(R.id.tvXMax);
-        seekBarX = findViewById(R.id.seekBar1);
+        seekBarX = findViewById(R.id.seekBarX);
         seekBarX.setOnSeekBarChangeListener(this);
 
         chart = findViewById(R.id.chart1);
@@ -119,20 +119,24 @@ public class LineChartTime extends DemoBase implements OnSeekBarChangeListener {
         rightAxis.setEnabled(false);
     }
 
-    private void setData(int count, float range) {
+    private void setData(int count) {
 
         // now in hours
-        long now = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis());
+        long now = 0; //470044; //TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis());
 
         ArrayList<Entry> values = new ArrayList<>();
 
         // count = hours
         float to = now + count;
 
+        Double[] valuesData = DataTools.Companion.getValues(Math.round(to));
         // increment by 1 hour
         for (float x = now; x < to; x++) {
-
-            float y = getRandom(range, 50);
+            float y;
+            if (count == 100) // initial
+                y = (valuesData[Math.round(x)]).floatValue() * 50 + 50;
+            else
+                y = (float) (Math.random() * 50 + 50); // manually triggered
             values.add(new Entry(x, y)); // add one entry per hour
         }
 
@@ -170,7 +174,7 @@ public class LineChartTime extends DemoBase implements OnSeekBarChangeListener {
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/LineChartTime.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartTime.java"));
                 startActivity(i);
                 break;
             }
@@ -299,7 +303,7 @@ public class LineChartTime extends DemoBase implements OnSeekBarChangeListener {
 
         tvX.setText(String.valueOf(seekBarX.getProgress()));
 
-        setData(seekBarX.getProgress(), 50);
+        setData(seekBarX.getProgress());
 
         // redraw
         chart.invalidate();

@@ -1,6 +1,5 @@
 package com.xxmassdeveloper.mpchartexample.fragments;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,6 +26,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.FileUtils;
+import com.xxmassdeveloper.mpchartexample.DataTools;
 
 import java.util.ArrayList;
 
@@ -34,13 +34,6 @@ import java.util.ArrayList;
 public abstract class SimpleFragment extends Fragment {
 
     private Typeface tf;
-    protected Context context;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     public SimpleFragment() {
 
@@ -48,12 +41,13 @@ public abstract class SimpleFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        tf = Typeface.createFromAsset(context.getAssets(), "OpenSans-Regular.ttf");
+        tf = Typeface.createFromAsset(requireContext().getAssets(), "OpenSans-Regular.ttf");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    protected BarData generateBarData(int dataSets, float range, int count) {
-
+    protected BarData generateBarData(int dataSets, float range) {
+        int count = 12;
+        Double[] values = DataTools.Companion.getValues(count);
         ArrayList<IBarDataSet> sets = new ArrayList<>();
 
         for(int i = 0; i < dataSets; i++) {
@@ -61,7 +55,7 @@ public abstract class SimpleFragment extends Fragment {
             ArrayList<BarEntry> entries = new ArrayList<>();
 
             for(int j = 0; j < count; j++) {
-                entries.add(new BarEntry(j, (float) (Math.random() * range) + range / 4));
+                entries.add(new BarEntry(j, (float) (values[j].floatValue() * range) + range / 4));
             }
 
             BarDataSet ds = new BarDataSet(entries, getLabel(i));
@@ -74,8 +68,9 @@ public abstract class SimpleFragment extends Fragment {
         return d;
     }
 
-    protected ScatterData generateScatterData(int dataSets, float range, int count) {
-
+    protected ScatterData generateScatterData(int dataSets, float range) {
+        int count = 100;
+        Double[] values = DataTools.Companion.getValues(count);
         ArrayList<IScatterDataSet> sets = new ArrayList<>();
 
         ScatterChart.ScatterShape[] shapes = ScatterChart.ScatterShape.getAllDefaultShapes();
@@ -85,7 +80,7 @@ public abstract class SimpleFragment extends Fragment {
             ArrayList<Entry> entries = new ArrayList<>();
 
             for(int j = 0; j < count; j++) {
-                entries.add(new Entry(j, (float) (Math.random() * range) + range / 4));
+                entries.add(new Entry(j, (float) (values[j].floatValue() * range) + range / 4));
             }
 
             ScatterDataSet ds = new ScatterDataSet(entries, getLabel(i));
@@ -108,11 +103,11 @@ public abstract class SimpleFragment extends Fragment {
     protected PieData generatePieData() {
 
         int count = 4;
-
+        Double[] values = DataTools.Companion.getValues(count);
         ArrayList<PieEntry> entries1 = new ArrayList<>();
 
         for(int i = 0; i < count; i++) {
-            entries1.add(new PieEntry((float) ((Math.random() * 60) + 40), "Quarter " + (i+1)));
+            entries1.add(new PieEntry((float) ((values[i].floatValue() * 60) + 40), "Quarter " + (i+1)));
         }
 
         PieDataSet ds1 = new PieDataSet(entries1, "Quarterly Revenues 2015");
@@ -130,8 +125,8 @@ public abstract class SimpleFragment extends Fragment {
     protected LineData generateLineData() {
 
         ArrayList<ILineDataSet> sets = new ArrayList<>();
-        LineDataSet ds1 = new LineDataSet(FileUtils.loadEntriesFromAssets(context.getAssets(), "sine.txt"), "Sine function");
-        LineDataSet ds2 = new LineDataSet(FileUtils.loadEntriesFromAssets(context.getAssets(), "cosine.txt"), "Cosine function");
+        LineDataSet ds1 = new LineDataSet(FileUtils.loadEntriesFromAssets(requireContext().getAssets(), "sine.txt"), "Sine function");
+        LineDataSet ds2 = new LineDataSet(FileUtils.loadEntriesFromAssets(requireContext().getAssets(), "cosine.txt"), "Cosine function");
 
         ds1.setLineWidth(2f);
         ds2.setLineWidth(2f);
@@ -155,10 +150,10 @@ public abstract class SimpleFragment extends Fragment {
 
         ArrayList<ILineDataSet> sets = new ArrayList<>();
 
-        LineDataSet ds1 = new LineDataSet(FileUtils.loadEntriesFromAssets(context.getAssets(), "n.txt"), "O(n)");
-        LineDataSet ds2 = new LineDataSet(FileUtils.loadEntriesFromAssets(context.getAssets(), "nlogn.txt"), "O(nlogn)");
-        LineDataSet ds3 = new LineDataSet(FileUtils.loadEntriesFromAssets(context.getAssets(), "square.txt"), "O(n\u00B2)");
-        LineDataSet ds4 = new LineDataSet(FileUtils.loadEntriesFromAssets(context.getAssets(), "three.txt"), "O(n\u00B3)");
+        LineDataSet ds1 = new LineDataSet(FileUtils.loadEntriesFromAssets(requireContext().getAssets(), "n.txt"), "O(n)");
+        LineDataSet ds2 = new LineDataSet(FileUtils.loadEntriesFromAssets(requireContext().getAssets(), "nlogn.txt"), "O(nlogn)");
+        LineDataSet ds3 = new LineDataSet(FileUtils.loadEntriesFromAssets(requireContext().getAssets(), "square.txt"), "O(n\u00B2)");
+        LineDataSet ds4 = new LineDataSet(FileUtils.loadEntriesFromAssets(requireContext().getAssets(), "three.txt"), "O(n\u00B3)");
 
         ds1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         ds2.setColor(ColorTemplate.VORDIPLOM_COLORS[1]);

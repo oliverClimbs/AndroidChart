@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'maven-publish'
-    id "com.vanniktech.maven.publish" version "0.25.2"
+    id 'kotlin-android'
+    id "com.vanniktech.maven.publish" version "0.28.0"
 }
 
 ext {
@@ -14,15 +15,20 @@ ext {
 }
 
 android {
-    compileSdkVersion 33
+    namespace 'com.github.mikephil.charting'
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 33
+        compileSdk 34
+        targetSdkVersion 34
 
         // VERSION_NAME no longer available as of 4.1
         // https://issuetracker.google.com/issues/158695880
 
       consumerProguardFiles 'proguard-project.txt'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildTypes {
         release {
@@ -33,7 +39,6 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true // this prevents "not mocked" error
     }
-    namespace 'com.github.mikephil.charting'
 }
 
 dependencies {

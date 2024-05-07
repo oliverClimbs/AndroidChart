@@ -62,8 +62,8 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarX = findViewById(R.id.seekBarX);
+        seekBarY = findViewById(R.id.seekBarY);
 
         seekBarY.setOnSeekBarChangeListener(this);
         seekBarX.setOnSeekBarChangeListener(this);
@@ -141,11 +141,12 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         float start = 1f;
 
         ArrayList<BarEntry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(100);
 
         for (int i = (int) start; i < start + count; i++) {
-            float val = (float) (Math.random() * (range + 1));
+            float val = (float) (sampleValues[i].floatValue() * (range + 1));
 
-            if (Math.random() * 100 < 25) {
+            if (val * 100 < 25) {
                 values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
             } else {
                 values.add(new BarEntry(i, val));
@@ -157,7 +158,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
+            set1.setEntries(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
 
@@ -210,7 +211,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/BarChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/BarChartActivity.java"));
                 startActivity(i);
                 break;
             }

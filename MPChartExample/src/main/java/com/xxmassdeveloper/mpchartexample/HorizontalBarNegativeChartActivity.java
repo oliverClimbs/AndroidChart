@@ -2,7 +2,6 @@
 package com.xxmassdeveloper.mpchartexample;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.RectF;
@@ -15,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -56,8 +54,8 @@ public class HorizontalBarNegativeChartActivity extends DemoBase implements OnSe
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
 
-        seekBarX = findViewById(R.id.seekBar1);
-        seekBarY = findViewById(R.id.seekBar2);
+        seekBarX = findViewById(R.id.seekBarX);
+        seekBarY = findViewById(R.id.seekBarY);
 
         seekBarY.setOnSeekBarChangeListener(this);
         seekBarX.setOnSeekBarChangeListener(this);
@@ -124,9 +122,10 @@ public class HorizontalBarNegativeChartActivity extends DemoBase implements OnSe
         float barWidth = 9f;
         float spaceForBar = 10f;
         ArrayList<BarEntry> values = new ArrayList<>();
+        Double[] sampleValues = DataTools.Companion.getValues(count + 2);
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * range - range / 2);
+            float val = (float) (sampleValues[i].floatValue() * range - range / 2);
             values.add(new BarEntry(i * spaceForBar, val,
                     getResources().getDrawable(R.drawable.star)));
         }
@@ -136,7 +135,7 @@ public class HorizontalBarNegativeChartActivity extends DemoBase implements OnSe
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
+            set1.setEntries(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
@@ -167,7 +166,7 @@ public class HorizontalBarNegativeChartActivity extends DemoBase implements OnSe
         switch (item.getItemId()) {
             case R.id.viewGithub: {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/HorizontalBarChartActivity.java"));
+                i.setData(Uri.parse("https://github.com/AppDevNext/AndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/HorizontalBarChartActivity.java"));
                 startActivity(i);
                 break;
             }
